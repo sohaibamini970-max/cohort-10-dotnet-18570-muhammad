@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7MTFebRpcE0=",
+  "dgSpecHash": "aRGiOuhPYiQ=",
   "success": true,
-  "projectFilePath": "F:\\.NET Projects\\University_Portal_Backend\\University_Portal_Backend\\University_Portal_Backend.csproj",
+  "projectFilePath": "F:\\10 Pearls Internship\\Task_Management_Tool\\University_Portal_Backend\\University_Portal_Backend\\University_Portal_Backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ice.pk\\.nuget\\packages\\birdmessenger\\4.0.0\\birdmessenger.4.0.0.nupkg.sha512",
     "C:\\Users\\ice.pk\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

@@ -3406,11 +3406,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\.NET Projects\\University_Portal_Backend\\University_Portal_Backend\\University_Portal_Backend.csproj",
+      "projectUniqueName": "F:\\10 Pearls Internship\\Task_Management_Tool\\University_Portal_Backend\\University_Portal_Backend\\University_Portal_Backend.csproj",
       "projectName": "University_Portal_Backend",
-      "projectPath": "F:\\.NET Projects\\University_Portal_Backend\\University_Portal_Backend\\University_Portal_Backend.csproj",
+      "projectPath": "F:\\10 Pearls Internship\\Task_Management_Tool\\University_Portal_Backend\\University_Portal_Backend\\University_Portal_Backend.csproj",
       "packagesPath": "C:\\Users\\ice.pk\\.nuget\\packages\\",
-      "outputPath": "F:\\.NET Projects\\University_Portal_Backend\\University_Portal_Backend\\obj\\",
+      "outputPath": "F:\\10 Pearls Internship\\Task_Management_Tool\\University_Portal_Backend\\University_Portal_Backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
