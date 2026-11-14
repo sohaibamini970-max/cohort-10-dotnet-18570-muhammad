@@ -1,10 +1,8 @@
 import { useMemo } from "react";
 import {
-  LayoutDashboard,
   Users,
   Clock,
   CheckCircle2,
-  AlertCircle,
   TrendingUp,
   Activity,
   ArrowRight,
@@ -14,15 +12,15 @@ import { useTasks } from "../../context/TaskContext";
 import { useAuth } from "../../context/AuthContext";
 
 const statusColor = {
-  Completed: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-  "In Progress": "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  Pending: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
+  Completed: "bg-emerald-100 text-emerald-700",
+  "In Progress": "bg-amber-100 text-amber-700",
+  Pending: "bg-slate-100 text-slate-700",
 };
 
 const priorityColor = {
-  High: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
-  Medium: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  Low: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
+  High: "bg-red-100 text-red-700",
+  Medium: "bg-amber-100 text-amber-700",
+  Low: "bg-slate-100 text-slate-700",
 };
 
 export default function AdminDashboard() {
@@ -60,7 +58,7 @@ export default function AdminDashboard() {
         </p>
       </div>
 
-      {/* Top Stats */}
+      {/* Top Stats - Colorful Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <StatCard
           label="Total Tasks"
@@ -87,16 +85,16 @@ export default function AdminDashboard() {
           label="Pending"
           value={metrics.pending}
           icon={Clock}
-          gradient="from-slate-400 to-slate-600"
+          gradient="from-slate-500 to-slate-700"
           subtitle="Not started yet"
         />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Recent Activity */}
-        <div className="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5">
+        <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold text-lg dark:text-white flex items-center gap-2">
+            <h2 className="font-bold text-lg text-slate-800 flex items-center gap-2">
               <Activity size={18} className="text-primary-500" />
               Recent Tasks
             </h2>
@@ -109,17 +107,17 @@ export default function AdminDashboard() {
             {tasks.slice(0, 5).map((t) => (
               <div
                 key={t.id}
-                className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition border border-transparent hover:border-slate-200 dark:hover:border-slate-700"
+                className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 transition border border-transparent hover:border-slate-200"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0 font-bold text-slate-500">
+                  <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 font-bold text-slate-600">
                     {t.assignee[0]}
                   </div>
                   <div className="min-w-0">
-                    <p className="font-semibold text-sm truncate dark:text-white">
+                    <p className="font-semibold text-sm truncate text-slate-800">
                       {t.title}
                     </p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                    <p className="text-xs text-slate-500">
                       Assigned to {t.assignee}
                     </p>
                   </div>
@@ -138,8 +136,8 @@ export default function AdminDashboard() {
         </div>
 
         {/* Team Leaderboard */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5">
-          <h2 className="font-bold text-lg dark:text-white flex items-center gap-2 mb-4">
+        <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+          <h2 className="font-bold text-lg text-slate-800 flex items-center gap-2 mb-4">
             <Users size={18} className="text-primary-500" />
             Team Progress
           </h2>
@@ -152,14 +150,14 @@ export default function AdminDashboard() {
                 return (
                   <div key={name}>
                     <div className="flex justify-between text-sm mb-1">
-                      <span className="font-semibold text-slate-700 dark:text-slate-200">
+                      <span className="font-semibold text-slate-700">
                         {name}
                       </span>
-                      <span className="font-bold text-slate-600 dark:text-slate-300">
+                      <span className="font-bold text-slate-600">
                         {data.completed}/{data.total}
                       </span>
                     </div>
-                    <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
                       <div
                         className="h-full bg-gradient-to-r from-primary-500 to-purple-500 rounded-full"
                         style={{ width: `${pct}%` }}
@@ -177,20 +175,20 @@ export default function AdminDashboard() {
 
 function StatCard({ label, value, icon: Icon, gradient, subtitle }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 hover:shadow-xl transition-all duration-200">
-      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradient}`} />
-      <div className={`absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-10 bg-gradient-to-br ${gradient}`} />
-      
+    <div className={`relative overflow-hidden rounded-2xl p-5 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200 bg-gradient-to-br ${gradient}`}>
+      {/* Decorative background circle */}
+      <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-white opacity-10 pointer-events-none" />
+
       <div className="relative z-10">
         <div className="flex items-start justify-between mb-4">
-          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center shadow-lg text-white`}>
+          <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white">
             <Icon size={22} />
           </div>
-          <TrendingUp size={16} className="text-emerald-500" />
+          <TrendingUp size={16} className="text-white/80" />
         </div>
-        <p className="text-3xl font-extrabold text-slate-800 dark:text-white">{value}</p>
-        <p className="text-sm font-bold text-slate-600 dark:text-slate-300 mt-1">{label}</p>
-        <p className="text-xs text-slate-400 mt-0.5">{subtitle}</p>
+        <p className="text-4xl font-extrabold text-white">{value}</p>
+        <p className="text-sm font-bold text-white mt-1">{label}</p>
+        <p className="text-xs text-white/80 mt-0.5">{subtitle}</p>
       </div>
     </div>
   );

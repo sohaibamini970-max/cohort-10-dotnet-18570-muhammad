@@ -82,9 +82,6 @@ export default function Dashboard() {
             Here's what's happening with your tasks today.
           </p>
         </div>
-        <button className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-primary-600/20 transition active:scale-95 self-start sm:self-auto">
-          + New Task
-        </button>
       </div>
 
       {/* Stats — Solid colored cards */}

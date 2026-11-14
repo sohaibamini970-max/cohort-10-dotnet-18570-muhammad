@@ -21,27 +21,27 @@ import SubmitModal from "../components/SubmitModal";
 import TaskDetailModal from "../components/TaskDetailModal";
 
 const statusColor = {
-  Completed: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-  "In Progress": "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  Pending: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
+  Completed: "bg-emerald-100 text-emerald-700 ",
+  "In Progress": "bg-amber-100 text-amber-700 ",
+  Pending: "bg-slate-100 text-slate-700 text-slate-600",
 };
 
 const priorityColor = {
-  High: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
-  Medium: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  Low: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
+  High: "bg-red-100 text-red-700 ",
+  Medium: "bg-amber-100 text-amber-700 ",
+  Low: "bg-slate-100 text-slate-700 text-slate-600",
 };
 
 const impactColor = {
-  High: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
-  Medium: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  Low: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
+  High: "bg-red-100 text-red-700 ",
+  Medium: "bg-amber-100 text-amber-700 ",
+  Low: "bg-slate-100 text-slate-700 text-slate-600",
 };
 
 const challengeStatusColor = {
-  Resolved: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-  "In Progress": "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  Open: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
+  Resolved: "bg-emerald-100 text-emerald-700 ",
+  "In Progress": "bg-amber-100 text-amber-700 ",
+  Open: "bg-red-100 text-red-700 ",
 };
 
 /* Top accent bar colors */
@@ -77,8 +77,8 @@ const fmtDate = (iso) => {
 const uid = () => Math.random().toString(36).slice(2, 9);
 
 /* ============================================================
-   TASK WORK MODAL — Hybrid View (Admin assigned + User added)
-   ============================================================ */
+ TASK WORK MODAL — Hybrid View (Admin assigned + User added)
+ ============================================================ */
 function TaskWorkModal({ task, onClose, onUpdate }) {
   const [newStep, setNewStep] = useState("");
 
@@ -112,18 +112,18 @@ function TaskWorkModal({ task, onClose, onUpdate }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-4 flex items-start justify-between gap-3 rounded-t-2xl z-10">
+      <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-start justify-between gap-3 rounded-t-2xl z-10">
           <div className="min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <ListChecks size={18} className="text-primary-600 dark:text-primary-400" />
-              <span className="text-xs font-bold uppercase text-primary-600 dark:text-primary-400 tracking-wide">
+              <ListChecks size={18} className="text-primary-600" />
+              <span className="text-xs font-bold uppercase text-primary-600 tracking-wide">
                 Task Work Breakdown
               </span>
             </div>
-            <h3 className="text-lg font-bold dark:text-white truncate">{task.title}</h3>
+            <h3 className="text-lg font-bold text-slate-900 truncate">{task.title}</h3>
           </div>
-          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 flex-shrink-0">
+          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500 flex-shrink-0">
             <X size={18} />
           </button>
         </div>
@@ -140,21 +140,21 @@ function TaskWorkModal({ task, onClose, onUpdate }) {
 
           <div>
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Work Progress</p>
-              <p className="text-sm font-bold dark:text-white">{completed}/{steps.length} · {pct}%</p>
+              <p className="text-xs font-bold uppercase text-slate-500">Work Progress</p>
+              <p className="text-sm font-bold text-slate-900">{completed}/{steps.length} · {pct}%</p>
             </div>
-            <div className="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
               <div className="h-full bg-gradient-to-r from-primary-500 to-emerald-500 rounded-full transition-all duration-300" style={{ width: `${pct}%` }} />
             </div>
           </div>
 
           <div>
-            <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-2">
+            <p className="text-xs font-bold uppercase text-slate-500 mb-2">
               Breakdown Checklist ({steps.length})
             </p>
 
             {steps.length === 0 ? (
-              <p className="text-sm text-slate-400 dark:text-slate-500 italic py-4 text-center bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+              <p className="text-sm text-slate-400 text-slate-500 italic py-4 text-center bg-slate-50 rounded-xl">
                 No work breakdown yet. Add your first step below.
               </p>
             ) : (
@@ -162,7 +162,7 @@ function TaskWorkModal({ task, onClose, onUpdate }) {
                 {steps.map((s) => (
                   <div
                     key={s.id}
-                    className="group flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 transition"
+                    className="group flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 transition"
                   >
                     <button
                       onClick={() => toggleStep(s.id)}
@@ -175,14 +175,14 @@ function TaskWorkModal({ task, onClose, onUpdate }) {
                         <CircleDot size={20} className="text-slate-400" />
                       )}
                     </button>
-                    
-                    <p className={`flex-1 text-sm font-medium ${s.done ? "text-slate-500 dark:text-slate-400 line-through" : "text-slate-700 dark:text-slate-200"}`}>
+
+                    <p className={`flex-1 text-sm font-medium ${s.done ? "text-slate-500 text-slate-500 line-through" : "text-slate-700 text-slate-700"}`}>
                       {s.title}
                     </p>
 
                     <button
                       onClick={() => removeStep(s.id)}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 transition flex-shrink-0"
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition flex-shrink-0"
                       aria-label="Remove step"
                     >
                       <Trash2 size={14} />
@@ -199,7 +199,7 @@ function TaskWorkModal({ task, onClose, onUpdate }) {
                 onChange={(e) => setNewStep(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && addStep()}
                 placeholder="Add a new step..."
-                className="flex-1 px-3 py-2.5 rounded-xl text-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-500 transition"
+                className="flex-1 px-3 py-2.5 rounded-xl text-sm bg-white border border-slate-200 text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition"
               />
               <button
                 onClick={addStep}
@@ -216,8 +216,8 @@ function TaskWorkModal({ task, onClose, onUpdate }) {
 }
 
 /* ============================================================
-   CHALLENGES MODAL — Fully editable
-   ============================================================ */
+ CHALLENGES MODAL — Fully editable
+ ============================================================ */
 const EMPTY_CHALLENGE = { problem: "", impact: "Medium", status: "Open" };
 
 function ChallengesModal({ task, onClose, onUpdate }) {
@@ -254,42 +254,42 @@ function ChallengesModal({ task, onClose, onUpdate }) {
   };
 
   const inputClass =
-    "w-full px-3 py-2 rounded-xl text-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-500 transition";
+    "w-full px-3 py-2 rounded-xl text-sm bg-white border border-slate-200 text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition";
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-4 flex items-start justify-between gap-3 rounded-t-2xl z-10">
+      <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-start justify-between gap-3 rounded-t-2xl z-10">
           <div className="min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <AlertTriangle size={18} className="text-amber-600 dark:text-amber-400" />
-              <span className="text-xs font-bold uppercase text-amber-600 dark:text-amber-400 tracking-wide">
+              <AlertTriangle size={18} className="text-amber-600" />
+              <span className="text-xs font-bold uppercase text-amber-600 tracking-wide">
                 Challenges
               </span>
             </div>
-            <h3 className="text-lg font-bold dark:text-white truncate">{task.title}</h3>
+            <h3 className="text-lg font-bold text-slate-900 truncate">{task.title}</h3>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 flex-shrink-0"
+            className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500 flex-shrink-0"
           >
             <X size={18} />
           </button>
         </div>
 
         <div className="p-6 space-y-4">
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-slate-500">
             Problems and challenges faced while working on this task.
           </p>
 
           {challenges.length === 0 ? (
-            <div className="text-center py-6 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+            <div className="text-center py-6 bg-slate-50 rounded-xl">
               <CheckCircle2 size={28} className="mx-auto text-emerald-500 mb-1" />
-              <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+              <p className="text-sm font-semibold text-slate-700">
                 No challenges recorded
               </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+              <p className="text-xs text-slate-500">
                 Add one below if issues come up.
               </p>
             </div>
@@ -298,7 +298,7 @@ function ChallengesModal({ task, onClose, onUpdate }) {
               {challenges.map((c, i) => (
                 <div
                   key={c.id}
-                  className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50"
+                  className="p-4 rounded-xl border border-slate-200 bg-slate-50"
                 >
                   {editingId === c.id ? (
                     <div className="space-y-2">
@@ -337,7 +337,7 @@ function ChallengesModal({ task, onClose, onUpdate }) {
                       <div className="flex gap-2 justify-end">
                         <button
                           onClick={() => setEditingId(null)}
-                          className="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
+                          className="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:bg-slate-200"
                         >
                           Cancel
                         </button>
@@ -353,24 +353,24 @@ function ChallengesModal({ task, onClose, onUpdate }) {
                     <>
                       <div className="flex items-start justify-between gap-3 mb-2">
                         <div className="flex items-start gap-2.5 flex-1 min-w-0">
-                          <span className="w-6 h-6 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-bold flex items-center justify-center flex-shrink-0">
+                          <span className="w-6 h-6 rounded-full bg-amber-100 text-amber-700 text-xs font-bold flex items-center justify-center flex-shrink-0">
                             {i + 1}
                           </span>
-                          <p className="text-sm font-semibold text-slate-800 dark:text-slate-100 leading-snug">
+                          <p className="text-sm font-semibold text-slate-800 leading-snug">
                             {c.problem}
                           </p>
                         </div>
                         <div className="flex gap-1 flex-shrink-0">
                           <button
                             onClick={() => startEdit(c)}
-                            className="p-1 rounded-lg text-slate-400 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-slate-700 transition"
+                            className="p-1 rounded-lg text-slate-400 hover:text-primary-600 hover:bg-primary-50 transition"
                             aria-label="Edit"
                           >
                             <Edit3 size={13} />
                           </button>
                           <button
                             onClick={() => removeChallenge(c.id)}
-                            className="p-1 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 transition"
+                            className="p-1 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
                             aria-label="Remove"
                           >
                             <Trash2 size={13} />
@@ -392,8 +392,8 @@ function ChallengesModal({ task, onClose, onUpdate }) {
             </div>
           )}
 
-          <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-2">
-            <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+          <div className="pt-3 border-t border-slate-200 space-y-2">
+            <p className="text-xs font-bold uppercase text-slate-500">
               Add Challenge
             </p>
             <input
@@ -436,8 +436,8 @@ function ChallengesModal({ task, onClose, onUpdate }) {
 }
 
 /* ============================================================
-   MAIN TASKS PAGE
-   ============================================================ */
+ MAIN TASKS PAGE
+ ============================================================ */
 export default function Tasks() {
   const { tasks, createTask, updateTask, deleteTask } = useTasks();
 
@@ -517,8 +517,8 @@ export default function Tasks() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold dark:text-white">Tasks</h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">Tasks</h1>
+          <p className="text-slate-500 mt-1">
             Manage, edit, and track all your team's tasks.
           </p>
         </div>
@@ -531,14 +531,14 @@ export default function Tasks() {
       </div>
 
       {/* Filters bar */}
-      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 flex flex-col lg:flex-row gap-3">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-5 flex flex-col lg:flex-row gap-3">
         <div className="relative flex-1">
           <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by title or assignee..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:text-slate-100 transition"
+            className="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-800 placeholder:text-slate-400 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition"
           />
         </div>
 
@@ -548,7 +548,7 @@ export default function Tasks() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="px-3 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 text-sm font-semibold shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition"
             >
               <option value="All">All Status</option>
               <option>Pending</option>
@@ -559,7 +559,7 @@ export default function Tasks() {
           <select
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value)}
-            className="px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="px-3 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 text-sm font-semibold shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition"
           >
             <option value="All">All Priority</option>
             <option>High</option>
@@ -571,12 +571,12 @@ export default function Tasks() {
 
       {/* Task cards */}
       {filtered.length === 0 ? (
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-12 text-center">
-          <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-12 text-center">
+          <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-slate-100 flex items-center justify-center">
             <Search size={24} className="text-slate-400" />
           </div>
-          <p className="font-semibold text-slate-700 dark:text-slate-200">No tasks found</p>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="font-semibold text-slate-700">No tasks found</p>
+          <p className="text-sm text-slate-500 mt-1">
             Try changing filters or create a new task.
           </p>
         </div>
@@ -603,7 +603,7 @@ export default function Tasks() {
                       setDetailTask(t);
                     }
                   }}
-                  className="group relative bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 flex flex-col hover:shadow-xl hover:-translate-y-1 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="group relative bg-white rounded-2xl border border-slate-200 p-5 flex flex-col shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary-200 transition-all duration-200 overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500"
                 >
                   {/* Status accent bar (top) */}
                   <div
@@ -612,7 +612,7 @@ export default function Tasks() {
 
                   {/* Soft status tint (top-right corner glow) */}
                   <div
-                    className={`absolute -top-16 -right-16 w-40 h-40 rounded-full opacity-20 dark:opacity-10 pointer-events-none ${statusGlow[t.status]}`}
+                    className={`absolute -top-16 -right-16 w-40 h-40 rounded-full opacity-20 pointer-events-none ${statusGlow[t.status]}`}
                   />
 
                   {/* ==================== TOP ROW ==================== */}
@@ -632,7 +632,7 @@ export default function Tasks() {
                         </span>
                       </div>
 
-                      <h3 className="font-bold text-base text-slate-800 dark:text-slate-100 leading-snug line-clamp-2">
+                      <h3 className="font-bold text-base text-slate-800 leading-snug line-clamp-2">
                         {t.title}
                       </h3>
                     </div>
@@ -644,7 +644,7 @@ export default function Tasks() {
                           e.stopPropagation();
                           openEdit(t);
                         }}
-                        className="p-1.5 rounded-lg bg-white/70 dark:bg-slate-800 text-slate-500 hover:bg-primary-50 hover:text-primary-600 dark:hover:bg-slate-700 dark:hover:text-primary-400 shadow-sm transition"
+                        className="p-1.5 rounded-lg bg-white/70 text-slate-500 hover:bg-primary-50 hover:text-primary-600 shadow-sm transition"
                         aria-label="Edit"
                       >
                         <Edit3 size={14} />
@@ -654,7 +654,7 @@ export default function Tasks() {
                           e.stopPropagation();
                           setDeleting(t);
                         }}
-                        className="p-1.5 rounded-lg bg-white/70 dark:bg-slate-800 text-slate-500 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950/40 dark:hover:text-red-400 shadow-sm transition"
+                        className="p-1.5 rounded-lg bg-white/70 text-slate-500 hover:bg-red-50 hover:text-red-600 shadow-sm transition"
                         aria-label="Delete"
                       >
                         <Trash2 size={14} />
@@ -664,11 +664,11 @@ export default function Tasks() {
 
                   {/* ==================== DESCRIPTION ==================== */}
                   {t.description ? (
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2 flex-1 relative z-10">
+                    <p className="text-sm text-slate-500 mb-4 line-clamp-2 flex-1 relative z-10">
                       {t.description}
                     </p>
                   ) : (
-                    <p className="text-sm text-slate-400 dark:text-slate-500 italic mb-4 flex-1 relative z-10">
+                    <p className="text-sm text-slate-400 text-slate-500 italic mb-4 flex-1 relative z-10">
                       No description provided
                     </p>
                   )}
@@ -677,18 +677,18 @@ export default function Tasks() {
                   {steps.length > 0 && (
                     <div className="mb-4 relative z-10">
                       <div className="flex justify-between items-center text-xs mb-1.5">
-                        <span className="font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-1">
+                        <span className="font-semibold text-slate-600 flex items-center gap-1">
                           <ListChecks size={12} className="text-primary-500" />
                           Work Progress
                         </span>
-                        <span className="font-bold text-slate-700 dark:text-slate-200">
+                        <span className="font-bold text-slate-700">
                           {done}/{steps.length}
                           <span className="text-slate-400 font-medium ml-1">
                             · {stepPct}%
                           </span>
                         </span>
                       </div>
-                      <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-gradient-to-r from-primary-500 via-purple-500 to-emerald-500 rounded-full transition-all duration-500"
                           style={{ width: `${stepPct}%` }}
@@ -699,20 +699,20 @@ export default function Tasks() {
 
                   {/* ==================== META ROW ==================== */}
                   <div className="flex items-center gap-2 mb-4 relative z-10 flex-wrap">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 text-xs font-semibold text-slate-700">
                       <span className="w-5 h-5 rounded-full bg-gradient-to-br from-primary-500 to-purple-500 text-white text-[10px] font-bold flex items-center justify-center">
                         {t.assignee?.[0]?.toUpperCase() || "?"}
                       </span>
                       {t.assignee}
                     </span>
 
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200">
-                      <CalendarDays size={12} className="text-slate-500 dark:text-slate-400" />
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 text-xs font-semibold text-slate-700">
+                      <CalendarDays size={12} className="text-slate-500" />
                       {fmtDate(t.due)}
                     </span>
 
                     {challengeCount > 0 && (
-                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-amber-50 dark:bg-amber-900/30 text-xs font-bold text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-amber-50 text-xs font-bold text-amber-700 border border-amber-200">
                         <AlertTriangle size={11} />
                         {challengeCount}
                       </span>
@@ -720,13 +720,13 @@ export default function Tasks() {
                   </div>
 
                   {/* ==================== ACTIONS ==================== */}
-                  <div className="grid grid-cols-3 gap-2 mt-auto relative z-10 pt-3 border-t border-slate-100 dark:border-slate-800">
+                  <div className="grid grid-cols-3 gap-2 mt-auto relative z-10 pt-3 border-t border-slate-100">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         setTaskWork(t);
                       }}
-                      className="flex items-center justify-center gap-1 px-2 py-2.5 rounded-xl text-xs font-bold text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-900/30 hover:bg-primary-100 dark:hover:bg-primary-900/50 border border-primary-100 dark:border-primary-800/50 transition active:scale-95"
+                      className="flex items-center justify-center gap-1 px-2 py-2.5 rounded-xl text-xs font-bold text-white bg-primary-500 hover:bg-primary-600 transition active:scale-95"
                     >
                       <ListChecks size={14} /> Work
                     </button>
@@ -735,7 +735,7 @@ export default function Tasks() {
                         e.stopPropagation();
                         setChallenges(t);
                       }}
-                      className="flex items-center justify-center gap-1 px-2 py-2.5 rounded-xl text-xs font-bold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-900/30 hover:bg-amber-100 dark:hover:bg-amber-900/50 border border-amber-100 dark:border-amber-800/50 transition active:scale-95"
+                      className="flex items-center justify-center gap-1 px-2 py-2.5 rounded-xl text-xs font-bold text-whitee bg-amber-500 hover:bg-amber-600 transition active:scale-95"
                     >
                       <AlertTriangle size={14} /> Challenges
                     </button>
@@ -744,11 +744,10 @@ export default function Tasks() {
                         e.stopPropagation();
                         openSubmit(t);
                       }}
-                      className={`flex items-center justify-center gap-1 px-2 py-2.5 rounded-xl text-xs font-bold transition active:scale-95 ${
-                        t.status === "Completed"
-                          ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/50"
+                      className={`flex items-center justify-center gap-1 px-2 py-2.5 rounded-xl text-xs font-bold transition active:scale-95 ${t.status === "Completed"
+                          ? "bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 "
                           : "text-white bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 shadow-md shadow-emerald-500/30"
-                      }`}
+                        }`}
                     >
                       {t.status === "Completed" ? (
                         <>
@@ -766,7 +765,7 @@ export default function Tasks() {
             })}
           </div>
 
-          <p className="text-xs text-slate-400 dark:text-slate-500">
+          <p className="text-xs text-slate-400 text-slate-500">
             Showing {filtered.length} of {tasks.length} tasks
           </p>
         </>

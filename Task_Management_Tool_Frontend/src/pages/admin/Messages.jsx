@@ -3,7 +3,6 @@ import {
   Search,
   Send,
   Inbox,
-  User,
   MoreVertical,
   ArrowLeft,
 } from "lucide-react";
@@ -49,7 +48,6 @@ export default function Messages() {
 
   const handleSelect = (id) => {
     setActiveId(id);
-    // Mark as read
     setMessages((prev) =>
       prev.map((m) => (m.id === id ? { ...m, unread: false } : m))
     );
@@ -58,8 +56,6 @@ export default function Messages() {
   const handleReply = (e) => {
     e.preventDefault();
     if (!replyText.trim()) return;
-    
-    // Mock sending reply (just clears input)
     alert(`Reply sent to ${activeMsg.sender}:\n\n"${replyText}"`);
     setReplyText("");
   };
@@ -73,17 +69,17 @@ export default function Messages() {
         </p>
       </div>
 
-      <div className="flex-1 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex overflow-hidden">
-        
+      <div className="flex-1 bg-white rounded-2xl border border-slate-200 flex overflow-hidden shadow-sm">
+
         {/* Sidebar (Inbox) */}
-        <div className="w-80 border-r border-slate-200 dark:border-slate-800 flex flex-col flex-shrink-0 hidden md:flex">
-          <div className="p-4 border-b border-slate-200 dark:border-slate-800">
+        <div className="w-80 border-r border-slate-200 flex flex-col flex-shrink-0 hidden md:flex">
+          <div className="p-4 border-b border-slate-200">
             <div className="relative">
               <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
                 type="text"
                 placeholder="Search messages..."
-                className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 dark:text-slate-100"
+                className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 text-slate-800"
               />
             </div>
           </div>
@@ -92,19 +88,18 @@ export default function Messages() {
               <button
                 key={m.id}
                 onClick={() => handleSelect(m.id)}
-                className={`w-full text-left p-4 border-b border-slate-100 dark:border-slate-800 transition flex flex-col gap-1 ${
-                  activeId === m.id
-                    ? "bg-primary-50 dark:bg-primary-900/20 border-l-4 border-l-primary-600"
-                    : "hover:bg-slate-50 dark:hover:bg-slate-800/50 border-l-4 border-l-transparent"
-                }`}
+                className={`w-full text-left p-4 border-b border-slate-100 transition flex flex-col gap-1 ${activeId === m.id
+                    ? "bg-primary-50 border-l-4 border-l-primary-600"
+                    : "hover:bg-slate-50 border-l-4 border-l-transparent"
+                  }`}
               >
                 <div className="flex justify-between items-center w-full">
-                  <span className={`text-sm ${m.unread ? "font-bold text-slate-800 dark:text-white" : "font-medium text-slate-600 dark:text-slate-300"}`}>
+                  <span className={`text-sm ${m.unread ? "font-bold text-slate-800" : "font-medium text-slate-600"}`}>
                     {m.sender}
                   </span>
                   <span className="text-[10px] text-slate-400">{m.time}</span>
                 </div>
-                <p className={`text-xs truncate ${m.unread ? "font-semibold text-slate-700 dark:text-slate-200" : "text-slate-500 dark:text-slate-400"}`}>
+                <p className={`text-xs truncate ${m.unread ? "font-semibold text-slate-700" : "text-slate-500"}`}>
                   {m.subject}
                 </p>
                 <p className="text-xs text-slate-400 truncate">{m.preview}</p>
@@ -114,11 +109,10 @@ export default function Messages() {
         </div>
 
         {/* Main Chat Area */}
-        <div className="flex-1 flex flex-col min-w-0 bg-slate-50 dark:bg-slate-900/50">
+        <div className="flex-1 flex flex-col min-w-0 bg-slate-50">
           {activeMsg ? (
             <>
-              {/* Chat Header */}
-              <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center">
+              <div className="p-4 border-b border-slate-200 bg-white flex justify-between items-center">
                 <div className="flex items-center gap-3">
                   <button className="md:hidden p-2 rounded-lg hover:bg-slate-100">
                     <ArrowLeft size={18} />
@@ -127,7 +121,7 @@ export default function Messages() {
                     {activeMsg.sender[0]}
                   </div>
                   <div>
-                    <p className="font-bold text-sm text-slate-800 dark:text-white">{activeMsg.sender}</p>
+                    <p className="font-bold text-sm text-slate-800">{activeMsg.sender}</p>
                     <p className="text-xs text-slate-500">{activeMsg.subject}</p>
                   </div>
                 </div>
@@ -136,14 +130,13 @@ export default function Messages() {
                 </button>
               </div>
 
-              {/* Chat Body */}
               <div className="flex-1 p-6 overflow-y-auto space-y-6">
                 <div className="flex gap-3 max-w-2xl">
                   <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-1">
                     {activeMsg.sender[0]}
                   </div>
-                  <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl rounded-tl-sm shadow-sm">
-                    <p className="text-sm text-slate-700 dark:text-slate-200 whitespace-pre-wrap">
+                  <div className="bg-white border border-slate-200 p-4 rounded-2xl rounded-tl-sm shadow-sm">
+                    <p className="text-sm text-slate-700 whitespace-pre-wrap">
                       {activeMsg.body}
                     </p>
                     <span className="text-[10px] text-slate-400 mt-2 block">{activeMsg.time}</span>
@@ -151,14 +144,13 @@ export default function Messages() {
                 </div>
               </div>
 
-              {/* Chat Input */}
-              <div className="p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+              <div className="p-4 bg-white border-t border-slate-200">
                 <form onSubmit={handleReply} className="flex gap-3">
                   <input
                     value={replyText}
                     onChange={(e) => setReplyText(e.target.value)}
                     placeholder={`Reply to ${activeMsg.sender}...`}
-                    className="flex-1 px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 dark:text-slate-100"
+                    className="flex-1 px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 text-slate-800"
                   />
                   <button
                     type="submit"

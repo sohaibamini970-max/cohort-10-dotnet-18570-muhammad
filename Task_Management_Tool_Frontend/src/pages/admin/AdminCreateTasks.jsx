@@ -1,11 +1,8 @@
 import { useState } from "react";
 import {
   Plus,
-  User,
   CalendarDays,
   ListTodo,
-  CheckCircle2,
-  Clock,
   Save,
   Search,
   ListChecks,
@@ -14,15 +11,9 @@ import {
 import { useTasks } from "../../context/TaskContext";
 
 const statusColor = {
-  Completed: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-  "In Progress": "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  Pending: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
-};
-
-const priorityColor = {
-  High: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
-  Medium: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  Low: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
+  Completed: "bg-emerald-100 text-emerald-700",
+  "In Progress": "bg-amber-100 text-amber-700",
+  Pending: "bg-slate-100 text-slate-700",
 };
 
 const fmtDate = (iso) => {
@@ -33,8 +24,7 @@ const fmtDate = (iso) => {
 export default function AdminCreateTasks() {
   const { tasks, createTask } = useTasks();
   const [query, setQuery] = useState("");
-  
-  // Form State
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -44,7 +34,6 @@ export default function AdminCreateTasks() {
     status: "Pending",
   });
 
-  // Work Breakdown State
   const [workSteps, setWorkSteps] = useState([]);
   const [newStep, setNewStep] = useState("");
 
@@ -68,12 +57,11 @@ export default function AdminCreateTasks() {
 
     createTask({
       ...formData,
-      workBreakdown: workSteps, // 👈 Include the breakdown!
+      workBreakdown: workSteps,
       challenges: [],
       submission: null,
     });
 
-    // Reset form
     setFormData({
       title: "",
       description: "",
@@ -86,12 +74,12 @@ export default function AdminCreateTasks() {
     alert("Task created and assigned successfully!");
   };
 
-  const filteredTasks = tasks.filter((t) => 
-    t.title.toLowerCase().includes(query.toLowerCase()) || 
+  const filteredTasks = tasks.filter((t) =>
+    t.title.toLowerCase().includes(query.toLowerCase()) ||
     t.assignee.toLowerCase().includes(query.toLowerCase())
   );
 
-  const inputClass = "w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-500 transition";
+  const inputClass = "w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition";
 
   return (
     <div className="space-y-6">
@@ -103,16 +91,16 @@ export default function AdminCreateTasks() {
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
-        
+
         {/* LEFT: CREATE TASK FORM */}
-        <div className="xl:col-span-5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 self-start">
-          <h2 className="font-bold text-lg mb-4 dark:text-white flex items-center gap-2">
+        <div className="xl:col-span-5 bg-white rounded-2xl border border-slate-200 p-5 self-start shadow-sm">
+          <h2 className="font-bold text-lg mb-4 text-slate-800 flex items-center gap-2">
             <Plus size={18} className="text-primary-500" /> Create & Assign
           </h2>
-          
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold mb-1.5 dark:text-slate-200">Task Title *</label>
+              <label className="block text-sm font-semibold mb-1.5 text-slate-700">Task Title *</label>
               <input
                 required
                 name="title"
@@ -124,7 +112,7 @@ export default function AdminCreateTasks() {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold mb-1.5 dark:text-slate-200">Description</label>
+              <label className="block text-sm font-semibold mb-1.5 text-slate-700">Description</label>
               <textarea
                 name="description"
                 value={formData.description}
@@ -137,7 +125,7 @@ export default function AdminCreateTasks() {
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-sm font-semibold mb-1.5 dark:text-slate-200">Assign To *</label>
+                <label className="block text-sm font-semibold mb-1.5 text-slate-700">Assign To *</label>
                 <input
                   required
                   name="assignee"
@@ -148,7 +136,7 @@ export default function AdminCreateTasks() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold mb-1.5 dark:text-slate-200">Due Date</label>
+                <label className="block text-sm font-semibold mb-1.5 text-slate-700">Due Date</label>
                 <input
                   type="date"
                   name="due"
@@ -161,7 +149,7 @@ export default function AdminCreateTasks() {
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-sm font-semibold mb-1.5 dark:text-slate-200">Priority</label>
+                <label className="block text-sm font-semibold mb-1.5 text-slate-700">Priority</label>
                 <select name="priority" value={formData.priority} onChange={handleChange} className={inputClass}>
                   <option>Low</option>
                   <option>Medium</option>
@@ -169,7 +157,7 @@ export default function AdminCreateTasks() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-semibold mb-1.5 dark:text-slate-200">Initial Status</label>
+                <label className="block text-sm font-semibold mb-1.5 text-slate-700">Initial Status</label>
                 <select name="status" value={formData.status} onChange={handleChange} className={inputClass}>
                   <option>Pending</option>
                   <option>In Progress</option>
@@ -178,16 +166,16 @@ export default function AdminCreateTasks() {
             </div>
 
             {/* WORK BREAKDOWN ASSIGNMENT */}
-            <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
-              <label className="block text-sm font-semibold mb-2 dark:text-slate-200 flex items-center gap-2">
-                <ListChecks size={16} className="text-primary-500"/> Assign Task Work
+            <div className="pt-2 border-t border-slate-100">
+              <label className="block text-sm font-semibold mb-2 text-slate-700 flex items-center gap-2">
+                <ListChecks size={16} className="text-primary-500" /> Assign Task Work
               </label>
-              
+
               <div className="space-y-2 mb-3">
                 {workSteps.map((s, i) => (
-                  <div key={s.id} className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm">
-                    <span className="w-5 h-5 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-xs font-bold shrink-0">{i+1}</span>
-                    <span className="flex-1 truncate dark:text-slate-200">{s.title}</span>
+                  <div key={s.id} className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-200 text-sm">
+                    <span className="w-5 h-5 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-xs font-bold shrink-0">{i + 1}</span>
+                    <span className="flex-1 truncate text-slate-700">{s.title}</span>
                     <button type="button" onClick={() => handleRemoveStep(s.id)} className="text-slate-400 hover:text-red-500">
                       <Trash2 size={14} />
                     </button>
@@ -206,7 +194,7 @@ export default function AdminCreateTasks() {
                 <button
                   type="button"
                   onClick={handleAddStep}
-                  className="px-3 py-2 bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-300 rounded-xl font-bold hover:bg-primary-200 transition"
+                  className="px-3 py-2 bg-primary-100 text-primary-700 rounded-xl font-bold hover:bg-primary-200 transition"
                 >
                   Add
                 </button>
@@ -223,9 +211,9 @@ export default function AdminCreateTasks() {
         </div>
 
         {/* RIGHT: TASK TABLE */}
-        <div className="xl:col-span-7 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden">
-          <div className="p-5 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <h2 className="font-bold text-lg dark:text-white flex items-center gap-2">
+        <div className="xl:col-span-7 bg-white rounded-2xl border border-slate-200 flex flex-col overflow-hidden shadow-sm">
+          <div className="p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <h2 className="font-bold text-lg text-slate-800 flex items-center gap-2">
               <ListTodo size={18} className="text-primary-500" /> Task Directory
             </h2>
             <div className="relative w-full sm:w-64">
@@ -234,14 +222,14 @@ export default function AdminCreateTasks() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search tasks..."
-                className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 dark:text-slate-100"
+                className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 text-slate-800"
               />
             </div>
           </div>
-          
+
           <div className="overflow-x-auto flex-1">
             <table className="w-full text-sm text-left">
-              <thead className="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400">
+              <thead className="bg-slate-50 text-slate-500">
                 <tr>
                   <th className="px-5 py-3 font-bold whitespace-nowrap">Task Title</th>
                   <th className="px-5 py-3 font-bold whitespace-nowrap">Assignee</th>
@@ -249,21 +237,20 @@ export default function AdminCreateTasks() {
                   <th className="px-5 py-3 font-bold whitespace-nowrap">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              <tbody className="divide-y divide-slate-100">
                 {filteredTasks.map((t) => (
-                  <tr key={t.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition">
+                  <tr key={t.id} className="hover:bg-slate-50 transition">
                     <td className="px-5 py-3">
-                      <p className="font-semibold text-slate-800 dark:text-slate-100 max-w-[200px] truncate">
+                      <p className="font-semibold text-slate-800 max-w-[200px] truncate">
                         {t.title}
                       </p>
-                      {/* Show number of steps assigned */}
                       {(t.workBreakdown?.length > 0) && (
-                        <span className="text-[10px] font-bold text-primary-600 bg-primary-50 dark:bg-primary-900/30 px-1.5 py-0.5 rounded-md mt-1 inline-block">
+                        <span className="text-[10px] font-bold text-primary-600 bg-primary-50 px-1.5 py-0.5 rounded-md mt-1 inline-block">
                           {t.workBreakdown.length} Steps
                         </span>
                       )}
                     </td>
-                    <td className="px-5 py-3 whitespace-nowrap text-slate-600 dark:text-slate-300">
+                    <td className="px-5 py-3 whitespace-nowrap text-slate-600">
                       <span className="flex items-center gap-1.5">
                         <div className="w-6 h-6 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-[10px] font-bold">
                           {t.assignee[0]?.toUpperCase()}
@@ -271,7 +258,7 @@ export default function AdminCreateTasks() {
                         {t.assignee}
                       </span>
                     </td>
-                    <td className="px-5 py-3 whitespace-nowrap text-slate-600 dark:text-slate-300">
+                    <td className="px-5 py-3 whitespace-nowrap text-slate-600">
                       <span className="flex items-center gap-1.5">
                         <CalendarDays size={12} className="text-slate-400" /> {fmtDate(t.due)}
                       </span>

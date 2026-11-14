@@ -12,15 +12,15 @@ import {
 } from "lucide-react";
 
 const statusColor = {
-  Completed: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-  "In Progress": "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  Pending: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
+  Completed: "bg-emerald-100 text-emerald-700",
+  "In Progress": "bg-amber-100 text-amber-700",
+  Pending: "bg-slate-100 text-slate-700",
 };
 
 const priorityColor = {
-  High: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
-  Medium: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  Low: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
+  High: "bg-red-100 text-red-700",
+  Medium: "bg-amber-100 text-amber-700",
+  Low: "bg-slate-100 text-slate-700",
 };
 
 const fmtDate = (iso) => {
@@ -49,22 +49,25 @@ export default function TaskDetailModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      {/* Backdrop */}
+      <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 max-h-[90vh] overflow-y-auto">
+      {/* Modal Container - Forced Light Mode */}
+      <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
+
         {/* Header */}
-        <div className="sticky top-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-4 flex items-start justify-between gap-3 rounded-t-2xl z-10">
+        <div className="sticky top-0 bg-white border-b border-slate-100 px-6 py-4 flex items-start justify-between gap-3 rounded-t-2xl z-10">
           <div className="min-w-0 flex-1">
-            <span className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wide">
+            <span className="text-xs font-bold uppercase text-slate-400 tracking-wide">
               Task Details
             </span>
-            <h2 className="text-lg font-bold dark:text-white leading-snug mt-1">
+            <h2 className="text-lg font-bold text-slate-800 leading-snug mt-1">
               {task.title}
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 flex-shrink-0"
+            className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500 flex-shrink-0 transition"
           >
             <X size={18} />
           </button>
@@ -85,10 +88,10 @@ export default function TaskDetailModal({
           {/* Description */}
           {task.description && (
             <div>
-              <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1.5">
+              <p className="text-xs font-bold uppercase text-slate-400 mb-1.5">
                 Description
               </p>
-              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-sm text-slate-600 leading-relaxed">
                 {task.description}
               </p>
             </div>
@@ -96,20 +99,20 @@ export default function TaskDetailModal({
 
           {/* Meta info */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50">
-              <p className="text-[10px] font-bold uppercase text-slate-500 dark:text-slate-400 mb-1">
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <p className="text-[10px] font-bold uppercase text-slate-400 mb-1">
                 Assignee
               </p>
-              <p className="flex items-center gap-1.5 text-sm font-semibold text-slate-800 dark:text-slate-100">
+              <p className="flex items-center gap-1.5 text-sm font-semibold text-slate-800">
                 <User size={14} className="text-slate-400" />
                 {task.assignee}
               </p>
             </div>
-            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50">
-              <p className="text-[10px] font-bold uppercase text-slate-500 dark:text-slate-400 mb-1">
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <p className="text-[10px] font-bold uppercase text-slate-400 mb-1">
                 Due Date
               </p>
-              <p className="flex items-center gap-1.5 text-sm font-semibold text-slate-800 dark:text-slate-100">
+              <p className="flex items-center gap-1.5 text-sm font-semibold text-slate-800">
                 <CalendarDays size={14} className="text-slate-400" />
                 {fmtDate(task.due)}
               </p>
@@ -119,14 +122,14 @@ export default function TaskDetailModal({
           {/* Work Progress */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+              <p className="text-xs font-bold uppercase text-slate-400">
                 Work Progress
               </p>
-              <p className="text-sm font-bold dark:text-white">
+              <p className="text-sm font-bold text-slate-800">
                 {completed}/{steps.length} · {pct}%
               </p>
             </div>
-            <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-primary-500 to-emerald-500 rounded-full transition-all"
                 style={{ width: `${pct}%` }}
@@ -135,13 +138,13 @@ export default function TaskDetailModal({
           </div>
 
           {/* Submission summary */}
-          <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50">
-            <p className="text-[10px] font-bold uppercase text-slate-500 dark:text-slate-400 mb-1">
-              Submission
+          <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+            <p className="text-[10px] font-bold uppercase text-slate-400 mb-1">
+              Submission Status
             </p>
             {submission ? (
-              <div className="flex items-center gap-3 text-xs text-slate-700 dark:text-slate-300">
-                <span className="flex items-center gap-1 font-semibold text-emerald-600 dark:text-emerald-400">
+              <div className="flex items-center gap-3 text-xs text-slate-700">
+                <span className="flex items-center gap-1 font-semibold text-emerald-600">
                   <CheckCircle2 size={13} /> Submitted
                 </span>
                 {submission.links?.length > 0 && (
@@ -156,85 +159,90 @@ export default function TaskDetailModal({
                 )}
               </div>
             ) : (
-              <p className="text-xs text-slate-500 dark:text-slate-400 italic flex items-center gap-1">
+              <p className="text-xs text-slate-500 italic flex items-center gap-1">
                 <CircleDot size={12} /> Not submitted yet
               </p>
             )}
           </div>
 
           {/* Redirect options */}
-          <div>
-            <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-2">
-              Open
+          <div className="pt-2">
+            <p className="text-xs font-bold uppercase text-slate-400 mb-3">
+              Quick Actions
             </p>
-            <div className="space-y-2">
+            <div className="space-y-3">
+
+              {/* Task Work Option */}
               <button
                 onClick={() => onOpenWork(task)}
-                className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-primary-50 dark:bg-primary-900/30 border border-primary-100 dark:border-primary-800/50 hover:bg-primary-100 dark:hover:bg-primary-900/50 transition text-left"
+                className="w-full group flex items-center justify-between p-4 rounded-xl bg-white border border-slate-200 hover:border-primary-300 hover:shadow-md transition-all text-left"
               >
                 <span className="flex items-center gap-3">
-                  <span className="w-9 h-9 rounded-lg bg-primary-600 text-white flex items-center justify-center">
-                    <ListChecks size={17} />
+                  <span className="w-10 h-10 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center group-hover:bg-primary-600 group-hover:text-white transition-colors">
+                    <ListChecks size={20} />
                   </span>
                   <span>
-                    <span className="block text-sm font-bold text-primary-700 dark:text-primary-300">
+                    <span className="block text-sm font-bold text-slate-800 group-hover:text-primary-700 transition-colors">
                       Task Work
                     </span>
-                    <span className="block text-xs text-primary-600/80 dark:text-primary-400/80">
+                    <span className="block text-xs text-slate-500 mt-0.5">
                       {steps.length} step{steps.length === 1 ? "" : "s"} · {completed} done
                     </span>
                   </span>
                 </span>
-                <span className="text-xs font-bold text-primary-600 dark:text-primary-400">
+                <span className="text-xs font-bold text-primary-600 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all">
                   Open →
                 </span>
               </button>
 
+              {/* Challenges Option */}
               <button
                 onClick={() => onOpenChallenges(task)}
-                className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-900/30 border border-amber-100 dark:border-amber-800/50 hover:bg-amber-100 dark:hover:bg-amber-900/50 transition text-left"
+                className="w-full group flex items-center justify-between p-4 rounded-xl bg-white border border-slate-200 hover:border-amber-300 hover:shadow-md transition-all text-left"
               >
                 <span className="flex items-center gap-3">
-                  <span className="w-9 h-9 rounded-lg bg-amber-600 text-white flex items-center justify-center">
-                    <AlertTriangle size={17} />
+                  <span className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                    <AlertTriangle size={20} />
                   </span>
                   <span>
-                    <span className="block text-sm font-bold text-amber-700 dark:text-amber-300">
+                    <span className="block text-sm font-bold text-slate-800 group-hover:text-amber-700 transition-colors">
                       Challenges
                     </span>
-                    <span className="block text-xs text-amber-600/80 dark:text-amber-400/80">
+                    <span className="block text-xs text-slate-500 mt-0.5">
                       {challengeCount} challenge{challengeCount === 1 ? "" : "s"} recorded
                     </span>
                   </span>
                 </span>
-                <span className="text-xs font-bold text-amber-600 dark:text-amber-400">
+                <span className="text-xs font-bold text-amber-600 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all">
                   Open →
                 </span>
               </button>
 
+              {/* Submit Option */}
               <button
                 onClick={() => onOpenSubmit(task)}
-                className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition text-left"
+                className="w-full group flex items-center justify-between p-4 rounded-xl bg-white border border-slate-200 hover:border-emerald-300 hover:shadow-md transition-all text-left"
               >
                 <span className="flex items-center gap-3">
-                  <span className="w-9 h-9 rounded-lg bg-emerald-600 text-white flex items-center justify-center">
-                    <Send size={17} />
+                  <span className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                    <Send size={20} />
                   </span>
                   <span>
-                    <span className="block text-sm font-bold text-emerald-700 dark:text-emerald-300">
+                    <span className="block text-sm font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">
                       {submission ? "View Submission" : "Submit Task"}
                     </span>
-                    <span className="block text-xs text-emerald-600/80 dark:text-emerald-400/80">
+                    <span className="block text-xs text-slate-500 mt-0.5">
                       {submission
-                        ? "See submitted work"
-                        : "Attach links or files"}
+                        ? "Review submitted links & files"
+                        : "Attach links or files to submit"}
                     </span>
                   </span>
                 </span>
-                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                <span className="text-xs font-bold text-emerald-600 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all">
                   Open →
                 </span>
               </button>
+
             </div>
           </div>
         </div>

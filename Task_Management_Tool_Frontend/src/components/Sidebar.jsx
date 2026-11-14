@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import {
@@ -9,24 +10,35 @@ import {
   TrendingUp,
   MessageSquare,
   PlusCircle,
-  ChevronRight, ChevronDown, ListFilter, CheckCircle2, Clock, AlertTriangle, Timer
+  ChevronRight,
+  ChevronDown,
+  ListFilter,
+  CheckCircle2,
+  Clock,
+  AlertTriangle,
+  Timer
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 /* ================= USER LINKS ================= */
 
-// 1. Define the links in the exact order we want them
 const userMainLinksTop = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/tasks", label: "My Tasks", icon: ListTodo },
+];
+const userTrackingLinks = [
+  { to: "/tracking", label: "View All", icon: ListFilter, filter: "all" },
+  { to: "/tracking/completed", label: "Completed", icon: CheckCircle2, filter: "completed" },
+  { to: "/tracking/pending", label: "Pending", icon: Clock, filter: "pending" },
+  { to: "/tracking/overdue", label: "Overdue", icon: AlertTriangle, filter: "overdue" },
 ];
 
 const userMainLinksBottom = [
   { to: "/messages", label: "Messages", icon: MessageSquare },
 ];
 
-
 /* ================= ADMIN LINKS ================= */
+
 const adminMainLinks = [
   { to: "/admin/dashboard", label: "Admin Home", icon: LayoutDashboard },
   { to: "/admin/create-task", label: "Manage Tasks", icon: PlusCircle },
@@ -35,21 +47,13 @@ const adminMainLinks = [
   { to: "/admin/messages", label: "Messages", icon: MessageSquare },
 ];
 
-const adminTrackingLinks = [
-  { to: "/admin/tracking", label: "View All", icon: ListFilter, end: true },
-  { to: "/admin/tracking/completed", label: "Completed", icon: CheckCircle2 },
-  { to: "/admin/tracking/pending", label: "Pending", icon: Clock },
-  { to: "/admin/tracking/overdue", label: "Overdue", icon: AlertTriangle },
-  { to: "/admin/tracking/deadline-passed", label: "Late Submissions", icon: Timer },
-];
-
 export default function Sidebar({ open, onClose }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
   const isAdmin = user?.role === "admin";
 
-  // Tracking dropdown state (only for users)
   const isTrackingActive = location.pathname.startsWith("/tracking");
   const [trackingOpen, setTrackingOpen] = useState(isTrackingActive);
 
@@ -76,137 +80,185 @@ export default function Sidebar({ open, onClose }) {
   const searchParams = new URLSearchParams(location.search);
   const currentFilter = searchParams.get("filter") || "all";
 
-  /* ---------- Styles ---------- */
+  /* ================= STYLES ================= */
+
   const navItemClass = ({ isActive }) =>
-    `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition ${
-      isActive
-        ? "bg-primary-600 text-white shadow-lg shadow-primary-600/20"
-        : "text-slate-600 dark:text-slate-300 hover:bg-violet-100 dark:hover:bg-slate-800"
+    `group flex items-center gap-3 px-4 py-3 rounded-xl text-[14px] font-semibold transition-all duration-200 ${isActive
+      ? "bg-violet-50 text-primary-700 shadow-sm ring-1 ring-violet-100"
+      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
     }`;
 
   const trackingParentClass = isTrackingActive
-    ? "bg-primary-600 text-white shadow-lg shadow-primary-600/20"
-    : "text-slate-600 dark:text-slate-300 hover:bg-violet-100 dark:hover:bg-slate-800";
+    ? "bg-violet-50 text-primary-700 shadow-sm ring-1 ring-violet-100"
+    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900";
 
   return (
     <>
+      {/* Mobile Overlay */}
       {open && (
-        <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" onClick={onClose} />
+        <div
+          className="fixed inset-0 bg-slate-900/30 backdrop-blur-[1px] z-40 lg:hidden"
+          onClick={onClose}
+        />
       )}
 
+      {/* Sidebar */}
       <aside
-        className={`fixed lg:sticky top-0 left-0 h-screen w-64 bg-violet-50 dark:bg-slate-900 border-r border-violet-200 dark:border-slate-800 flex flex-col z-50 transition-transform duration-300 ${
-          open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        }`}
+        className={`fixed lg:sticky top-0 left-0 h-screen w-64 bg-white border-r border-slate-100 flex flex-col z-50 transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+          }`}
       >
-        {/* Logo */}
-        <div className="h-20 flex items-center gap-2 px-6 border-b border-violet-200 dark:border-slate-800">
-          <div className="w-9 h-9 bg-primary-600 rounded-lg flex items-center justify-center text-white shadow-md shadow-primary-600/30">
-            <ShieldCheck size={20} />
+        {/* Logo Section */}
+        <div className="h-20 min-h-20 flex items-center gap-3 px-6 border-b border-slate-100">
+
+          <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-sm shadow-primary-600/20">
+            <ShieldCheck size={21} strokeWidth={2.2} />
           </div>
-          <span className="font-bold text-lg dark:text-white">TaskFlow</span>
+
+          <div className="flex-1 min-w-0">
+            <h2 className="text-lg font-extrabold text-slate-900 tracking-tight">
+              TaskFlow
+            </h2>
+            <p className="text-[10px] font-semibold tracking-[1.5px] uppercase text-slate-400">
+              Workspace
+            </p>
+          </div>
+
           <button
             onClick={onClose}
-            className="ml-auto p-1.5 rounded-lg text-slate-500 hover:bg-violet-200 dark:text-slate-300 dark:hover:bg-slate-800 transition"
+            className="lg:hidden p-2 rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition"
+            aria-label="Close sidebar"
           >
-            <X size={20} />
+            <X size={19} />
           </button>
         </div>
 
-        {/* Nav */}
-        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-          
-          {/* ========================================== */}
-          {/* ============  ADMIN MENU  ================= */}
-          {/* ========================================== */}
+        {/* Navigation */}
+        <nav className="flex-1 px-4 py-7 overflow-y-auto">
+
+          {/* Admin Menu */}
           {isAdmin ? (
             <>
-              <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase px-4 mb-2">
-                Admin Panel
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[1.5px] px-4 mb-4">
+                Administration
               </p>
-              {adminMainLinks.map((l) => (
-                <NavLink key={l.to} to={l.to} className={navItemClass} onClick={onClose}>
-                  <l.icon size={18} />
-                  {l.label}
-                </NavLink>
-              ))}
+
+              <div className="space-y-1.5">
+                {adminMainLinks.map((l) => (
+                  <NavLink
+                    key={l.to}
+                    to={l.to}
+                    className={navItemClass}
+                    onClick={onClose}
+                  >
+                    <l.icon size={19} strokeWidth={2} />
+                    <span>{l.label}</span>
+                  </NavLink>
+                ))}
+              </div>
             </>
           ) : (
-            /* ========================================== */
-            /* ============  USER MENU  ================== */
-            /* ========================================== */
             <>
-              <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase px-4 mb-2">
-                Menu
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[1.5px] px-4 mb-4">
+                Main Menu
               </p>
-              
-              {/* 1. Dashboard & My Tasks */}
-              {userMainLinksTop.map((l) => (
-                <NavLink key={l.to} to={l.to} className={navItemClass} onClick={onClose}>
-                  <l.icon size={18} />
-                  {l.label}
-                </NavLink>
-              ))}
 
-              {/* 2. Tracking Dropdown (Now second in the list) */}
-              <div>
-                <button
-                  onClick={handleTrackingClick}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition ${trackingParentClass}`}
-                >
-                  <TrendingUp size={18} />
-                  <span className="flex-1 text-left">Tracking</span>
-                  {trackingOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-                </button>
+              <div className="space-y-1.5">
 
-                <div className={`overflow-hidden transition-all duration-300 ${trackingOpen ? "max-h-96 mt-1" : "max-h-0"}`}>
-                  <div className="space-y-0.5">
-                    {userTrackingLinks.map((l) => {
-                      const isActive =
-                        isTrackingActive &&
-                        (l.filter === "all" ? currentFilter === "all" : currentFilter === l.filter);
+                {/* Dashboard and Tasks */}
+                {userMainLinksTop.map((l) => (
+                  <NavLink
+                    key={l.to}
+                    to={l.to}
+                    className={navItemClass}
+                    onClick={onClose}
+                  >
+                    <l.icon size={19} strokeWidth={2} />
+                    <span>{l.label}</span>
+                  </NavLink>
+                ))}
 
-                      return (
-                        <NavLink
-                          key={l.to}
-                          to={l.to}
-                          className={`flex items-center gap-2.5 px-4 py-2 ml-3 rounded-lg text-sm transition ${
-                            isActive
-                              ? "bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-300 font-bold"
-                              : "text-slate-500 dark:text-slate-400 hover:bg-transparent hover:text-slate-700 dark:hover:text-slate-200 font-medium"
-                          }`}
-                          onClick={onClose}
-                        >
-                          <l.icon size={14} />
-                          {l.label}
-                        </NavLink>
-                      );
-                    })}
+                {/* Tracking */}
+                <div>
+                  <button
+                    onClick={handleTrackingClick}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${trackingParentClass}`}
+                  >
+                    <TrendingUp size={19} strokeWidth={2} />
+
+                    <span className="flex-1 text-left">
+                      Tracking
+                    </span>
+
+                    {trackingOpen ? (
+                      <ChevronDown size={16} />
+                    ) : (
+                      <ChevronRight size={16} />
+                    )}
+                  </button>
+
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ${trackingOpen ? "max-h-96 mt-2" : "max-h-0"
+                      }`}
+                  >
+                    <div className="ml-5 pl-4 border-l border-slate-200 space-y-1">
+                      {userTrackingLinks.map((l) => {
+                        const isActive =
+                          isTrackingActive &&
+                          (l.filter === "all"
+                            ? currentFilter === "all"
+                            : currentFilter === l.filter);
+
+                        return (
+                          <NavLink
+                            key={l.to}
+                            to={l.to}
+                            className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition-all ${isActive
+                                ? "bg-violet-50 text-primary-700 font-bold"
+                                : "text-slate-500 hover:bg-slate-50 hover:text-slate-800 font-medium"
+                              }`}
+                            onClick={onClose}
+                          >
+                            <l.icon size={15} />
+                            {l.label}
+                          </NavLink>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* 3. Messages (Now at the bottom) */}
-              {userMainLinksBottom.map((l) => (
-                <NavLink key={l.to} to={l.to} className={navItemClass} onClick={onClose}>
-                  <l.icon size={18} />
-                  {l.label}
-                </NavLink>
-              ))}
+                {/* Messages */}
+                {userMainLinksBottom.map((l) => (
+                  <NavLink
+                    key={l.to}
+                    to={l.to}
+                    className={navItemClass}
+                    onClick={onClose}
+                  >
+                    <l.icon size={19} strokeWidth={2} />
+                    <span>{l.label}</span>
+                  </NavLink>
+                ))}
+
+              </div>
             </>
           )}
-
         </nav>
 
-        {/* Logout */}
-        <div className="p-4 border-t border-violet-200 dark:border-slate-800">
+        {/* Bottom User / Logout Section */}
+        <div className="p-4 border-t border-slate-100">
+
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 hover:bg-red-100 dark:hover:bg-red-950/60 transition active:scale-[0.98]"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-red-600 bg-red-50/70 hover:bg-red-100 transition-all duration-200 active:scale-[0.98]"
           >
-            <LogOut size={18} />
+            <LogOut size={19} strokeWidth={2} />
             Logout
           </button>
+
+          <p className="text-center text-[10px] text-slate-400 mt-4 font-medium">
+            TaskFlow Workspace
+          </p>
         </div>
       </aside>
     </>
