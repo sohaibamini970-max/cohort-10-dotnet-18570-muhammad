@@ -1,0 +1,18 @@
+# .NET Build folders
+bin/
+obj/
+.vs/
+
+# Node / React
+node_modules/
+dist/
+build/
+.env
+
+# Logs
+Logs/
+*.log
+
+# Mac / Windows
+.DS_Store
+Thumbs.db
