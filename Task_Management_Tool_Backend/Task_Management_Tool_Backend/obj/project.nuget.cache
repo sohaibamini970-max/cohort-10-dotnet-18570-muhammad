@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "MY032mBwh6c=",
+  "success": true,
+  "projectFilePath": "F:\\.NET Projects\\Task_Management_Tool_Backend\\Task_Management_Tool_Backend\\Task_Management_Tool_Backend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ice.pk\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.14\\microsoft.aspnetcore.openapi.10.0.14.nupkg.sha512",
+    "C:\\Users\\ice.pk\\.nuget\\packages\\microsoft.openapi\\2.12.2\\microsoft.openapi.2.12.2.nupkg.sha512"
+  ],
+  "logs": []
+}
